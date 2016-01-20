@@ -1,0 +1,37 @@
+body{
+  background-color: snow;
+  text-align: center;
+  font-family: 'Kaushan Script', cursive;
+  font-family: 'Titillium Web', sans-serif;
+  font-family: 'Alegreya Sans', sans-serif;
+}
+
+button{
+  margin:10px;
+}
+
+h1{
+  font-family: 'Kaushan Script', cursive;
+}
+
+#board{
+  margin-left: 35%;
+  margin-right: 35%;
+  background-color: snow;
+}
+
+.tile{
+  border: 3px solid snow;
+  min-height: 90px;
+  line-height: 80px;
+  background-color: LightSteelBlue;
+  font-size: 35px;
+}
+
+.row{
+  border: 2px solid snow;
+}
+
+.unselectable{
+  pointer-events:none;
+}
