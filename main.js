@@ -15,24 +15,21 @@ var userid = Math.floor(Math.random() * 10000000);
 var userRef = new Firebase('https://tictactoefirebase.firebaseio.com/presence/' + userid);
 var playerSymbol;
 
-assignPlayerSymbol();
+symbolsRef.once('value', function(snapshot){
+  if (snapshot.numChildren() === 0){
+      playerSymbol = "X";
+      symbolsRef.set({"X": userid});
+      $('h5').text("You are player X");
+  } else if (snapshot.numChildren() === 1) {
+      playerSymbol = "O";
+      symbolsRef.update({"O": userid});
+      $('h5').text("You are player O");
 
-function assignPlayerSymbol(){
-  symbolsRef.once('value', function(snapshot){
-    if (snapshot.numChildren() === 0){
-        playerSymbol = "X";
-        symbolsRef.set({"X": userid});
-        $('h5').text("You are player X");
-    } else if (snapshot.numChildren() === 1) {
-        playerSymbol = "O";
-        symbolsRef.update({"O": userid});
-        $('h5').text("You are player O");
-    } else {
-        alert("Sorry, we already have two players! But you can watch the game.");
-        $('#reset').off('click');
-        }
-    })
-}
+  } else {
+      alert("Sorry, we already have two players! But you can watch the game.");
+      $('#reset').off('click');
+      }
+  })
 
 initializeBoard();
 
@@ -126,10 +123,5 @@ function gameWon(playerSymbol){
 }
 
 function reset(){
-  currentPlayerRef.set("X");
-  boardRef.set({0: " ", 1: " ", 2: " ", 3: " ", 4: " ", 5: " ", 6: " ", 7:" ", 8: " "});
-  $('.tile').removeClass('unselectable');
-  $('.tile').empty();
-  $('h3').text("Player X begins the game:");
-  $('h3').removeClass().css({color: "black", fontWeight: "normal" });
+  gameRef.remove();
 }
